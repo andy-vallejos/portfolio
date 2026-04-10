@@ -1,0 +1,22 @@
+:root {
+  --bg-principal: #2b3d50;
+  --bg-secundary: #33fd6ff2;
+  --titles: "Space Grotesk", sans-serif;
+  --text: "#fff";
+  --highlight: var(--bg-secundary);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg-principal);
+  font-family: var(--titles);
+  color: white;
+  min-height: 500vh;
+  max-width: 1200px;
+  margin: auto;
+}
