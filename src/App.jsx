@@ -1,7 +1,4 @@
-import "./App.css";
-import { Header } from "./components/Header.jsx";
-import { Nav } from "./components/Nav.jsx";
-import { Skills } from "./components/Skills.jsx";
+import { Nav, Header, Skills } from "./components/index";
 
 function App() {
   return (

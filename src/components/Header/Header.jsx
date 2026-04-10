@@ -3,6 +3,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
+const BOTONES = [
+  {
+    nombre: "GitHub",
+    icon: faGithub,
+    link: "https://github.com/andy-vallejos",
+  },
+  { nombre: "Linkedin", icon: faLinkedin, link: "" },
+  {
+    nombre: "andyvallejos@gmail.com",
+    icon: faEnvelope,
+    link: "mailto:andyvallejosgb@gmail.com",
+  },
+];
+
 export function Header() {
   return (
     <header className={style.container}>
@@ -24,25 +38,18 @@ export function Header() {
         <img src="andy2.jpeg" alt="Andy" />
       </article>
       <section className={style.links}>
-        <a
-          href="https://linkedin.com/in/tu-perfil"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={style.btn}
-        >
-          <FontAwesomeIcon icon={faLinkedin} /> LinkedIn
-        </a>
-        <a
-          href="https://github.com/tu-usuario"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={style.btn}
-        >
-          <FontAwesomeIcon icon={faGithub} /> GitHub
-        </a>
-        <a href="mailto:andyvallejosgb@gmail.com" className={style.btn}>
-          <FontAwesomeIcon icon={faEnvelope} /> andyvallejosgb@gmail.com
-        </a>
+        {BOTONES.map((boton) => {
+          return (
+            <a
+              href={boton.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={style.btn}
+            >
+              <FontAwesomeIcon icon={boton.icon} /> {boton.nombre}
+            </a>
+          );
+        })}
       </section>
     </header>
   );

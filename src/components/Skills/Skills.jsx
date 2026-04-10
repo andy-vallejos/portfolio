@@ -17,8 +17,8 @@ import { faCode } from "@fortawesome/free-solid-svg-icons";
 import style from "./Skills.module.css";
 
 const MY_SKILLS = [
-  { icon: faHtml5, color: "#e34f26" },
-  { icon: faCss3Alt, color: "#1572b6" },
+  { name: "Html", icon: faHtml5, color: "#e34f26" },
+  { name: "Css", icon: faCss3Alt, color: "#1572b6" },
   { name: "JavaScript", icon: faJs, color: "#f7df1e" },
   { name: "Node.js", icon: faNodeJs, color: "#68a063" },
   { name: "React", icon: faReact, color: "#61dafb" },
@@ -26,7 +26,7 @@ const MY_SKILLS = [
   { name: "Java", icon: faJava, color: "#f89820" },
   { name: "Python", icon: faPython, color: "#3776ab" },
   { name: "C++", icon: faCode, color: "#00599c" },
-  { icon: faLinux, color: "#000000" },
+  { name: "Linux", icon: faLinux, color: "#000000" },
   { name: "Figma", icon: faFigma, color: "#F24E1E" },
 ];
 
