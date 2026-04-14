@@ -46,3 +46,14 @@
   top: -10px;
   right: -200px;
 }
+
+@media screen and (max-width: 1200px) {
+  .main__container img {
+    position: static;
+    transform: none;
+  }
+
+  .main__container {
+    flex-direction: column-reverse;
+  }
+}

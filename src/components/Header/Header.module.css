@@ -66,10 +66,38 @@ strong {
   transition: all 0.3s ease-in;
 }
 
+.links a p {
+  display: inline;
+}
+
 .links a:hover {
   border-color: #4ade80;
   color: #4ade80;
   background-color: transparent;
   transform: translateY(-2px);
   cursor: pointer;
+}
+
+@media screen and (max-width: 615px) {
+  .about {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .links a {
+    font-size: 30px;
+  }
+  .links a p {
+    display: none;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  p {
+    font-size: 16px;
+  }
 }

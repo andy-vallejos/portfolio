@@ -24,7 +24,7 @@ export function Header() {
         <section className={style.message}>
           <header>
             <h1>
-              Hola, <strong>soy Andy</strong>
+              Hola, <strong>soy Andy !!!</strong>
             </h1>
             <p className={style.highlight}>Desarrollador Frontend</p>
           </header>
@@ -46,7 +46,7 @@ export function Header() {
               rel="noopener noreferrer"
               className={style.btn}
             >
-              <FontAwesomeIcon icon={boton.icon} /> {boton.nombre}
+              <FontAwesomeIcon icon={boton.icon} /> <p>{boton.nombre}</p>
             </a>
           );
         })}
