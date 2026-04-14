@@ -1,6 +1,9 @@
 import { Nav, Header, Skills, About, Projects } from "./components/index";
 
 function App() {
+  window.addEventListener("load", () => {
+    alert("Pagina en desarrollo");
+  });
   return (
     <>
       <Nav></Nav>
