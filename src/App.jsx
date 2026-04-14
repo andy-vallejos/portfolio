@@ -1,11 +1,9 @@
 import { Nav, Header, Skills, About, Projects } from "./components/index";
 
 function App() {
-  window.addEventListener("load", () => {
-    alert("Pagina en desarrollo");
-  });
   return (
     <>
+      <p className="alert">Pagina en desarrollo...</p>
       <Nav></Nav>
       <Header></Header>
       <main>
