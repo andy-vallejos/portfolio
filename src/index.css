@@ -1,5 +1,5 @@
 :root {
-  --bg-principal: #2b3d50;
+  --bg-principal: #2b3948;
   --bg-secundary: #33fd6ff2;
   --titles: "Space Grotesk", sans-serif;
   --text: "#fff";
@@ -12,13 +12,37 @@
   box-sizing: border-box;
 }
 
+p {
+  font-size: 20px;
+}
+
+h1 {
+  font-size: 48px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
 body {
   background: var(--bg-principal);
   font-family: var(--titles);
   color: white;
-  min-height: 500vh;
-  max-width: 1200px;
+  max-width: 900px;
   margin: auto;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 80px;
+  padding: 30px;
 }
 
 a {

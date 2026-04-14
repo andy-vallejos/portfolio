@@ -1,11 +1,15 @@
-import { Nav, Header, Skills } from "./components/index";
+import { Nav, Header, Skills, About, Projects } from "./components/index";
 
 function App() {
   return (
     <>
       <Nav></Nav>
       <Header></Header>
-      <Skills></Skills>
+      <main>
+        <Skills></Skills>
+        <Projects></Projects>
+        <About></About>
+      </main>
     </>
   );
 }

@@ -1,6 +1,7 @@
 .container {
   width: 100vw;
   position: fixed;
+  top: -10px;
   left: 0;
   display: flex;
   align-items: center;
@@ -22,6 +23,8 @@
 .links a {
   padding: 5px;
   border-radius: 5px;
+  font-size: 14px;
+  text-shadow: 1px 1px 1px black;
 }
 
 .links a:hover {

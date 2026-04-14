@@ -33,18 +33,20 @@ const MY_SKILLS = [
 export function Skills() {
   return (
     <section className={style.container}>
-      <h1>SKILLS</h1>
-      <div className={style.iconGrid}>
-        {MY_SKILLS.map((skill, index) => (
-          <i
-            key={index}
-            className={style.skillLink}
-            style={{ "--skill-color": skill.color }}
-          >
-            <FontAwesomeIcon icon={skill.icon} />
-          </i>
-        ))}
-      </div>
+      <h2>Skills</h2>
+      <section className={style.container__icons}>
+        <div className={style.iconGrid}>
+          {MY_SKILLS.map((skill, index) => (
+            <i
+              key={index}
+              className={style.skillLink}
+              style={{ "--skill-color": skill.color }}
+            >
+              <FontAwesomeIcon icon={skill.icon} />
+            </i>
+          ))}
+        </div>
+      </section>
     </section>
   );
 }

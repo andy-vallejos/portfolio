@@ -1,0 +1,103 @@
+.container {
+  max-width: 700px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  position: relative;
+}
+
+.container::after {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #2457e22c;
+  filter: blur(200px);
+  z-index: -1000000;
+  border-radius: 50%;
+}
+
+.projectsGrid {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+.card {
+  width: calc(100% - 10px);
+  position: relative;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.img {
+  width: 100%;
+  height: 300px;
+  background-size: cover;
+  background-position: left;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+}
+
+.inf {
+  opacity: 0;
+  visibility: hidden;
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 101%;
+  box-sizing: border-box;
+  background: color-mix(
+    in srgb,
+    var(--brand-color, rgba(255, 255, 255, 0.1)),
+    transparent 80%
+  );
+  backdrop-filter: blur(20px);
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 10;
+}
+
+.card:hover .inf {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tech {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.techBadge {
+  background: color-mix(in srgb, var(--brand-color, #333), transparent 70%);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid var(--brand-color);
+}
+
+.description p {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0;
+}
