@@ -23,15 +23,15 @@
 
 .iconGrid::after {
   content: "";
-  width: 100%;
-  height: 100%;
+  width: 200px;
+  height: 200px;
+  top: 10px;
+  right: 1000px;
   position: absolute;
   inset: 0;
-  background: #259ab2b7;
-  opacity: 0.6;
+  background: #02b9f6;
   filter: blur(100px);
-  right: -50%;
-  z-index: -100;
+  z-index: -1000;
 }
 
 .skillLink {
@@ -40,12 +40,13 @@
   transition: all 0.3s ease;
   text-decoration: none;
   box-shadow: 0 10px 10px 1px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 5px;
 }
 
 .skillLink svg {
   color: var(--skill-color);
-  padding: 5px;
 }
 
 .skillLink:hover {

@@ -1,8 +1,9 @@
 :root {
-  --bg-principal: #2b3948;
+  --bg-principal: #0b0b0b;
   --bg-secundary: #33fd6ff2;
-  --titles: "Space Grotesk", sans-serif;
-  --text: "#fff";
+  --font-title: "Raleway", sans-serif;
+  --font-body: "Roboto", sans-serif;
+  --color-text: #fff;
   --highlight: var(--bg-secundary);
 }
 
@@ -13,25 +14,32 @@
 }
 
 p {
-  font-size: 20px;
+  font-size: 16px;
+  font-family: var(--font-body);
+  font-weight: 400;
 }
 
 h1 {
-  font-size: 48px;
+  font-size: 36px;
+  font-weight: 700;
+  font-family: var(--font-title);
 }
 
 h2 {
-  font-size: 30px;
+  font-size: 28px;
+  font-weight: 600;
+  font-family: var(--font-title);
 }
 
 h3 {
-  font-size: 24px;
+  font-size: 22px;
+  font-weight: 500;
+  font-family: var(--font-title);
 }
 
 body {
   background: var(--bg-principal);
-  font-family: var(--titles);
-  color: white;
+  color: var(--color-text);
   max-width: 900px;
   margin: auto;
 }
@@ -47,7 +55,9 @@ main {
 
 a {
   text-decoration: none;
-  color: white;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 16px;
 }
 
 li {
@@ -55,6 +65,7 @@ li {
 }
 
 .alert {
+  display: none;
   position: fixed;
   background: rgba(0, 0, 0, 0.607);
   bottom: 0;

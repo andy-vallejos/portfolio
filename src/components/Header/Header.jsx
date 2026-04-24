@@ -1,21 +1,6 @@
 import style from "./Header.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-
-const BOTONES = [
-  {
-    nombre: "GitHub",
-    icon: faGithub,
-    link: "https://github.com/andy-vallejos",
-  },
-  { nombre: "Linkedin", icon: faLinkedin, link: "" },
-  {
-    nombre: "andyvallejos@gmail.com",
-    icon: faEnvelope,
-    link: "mailto:andyvallejosgb@gmail.com",
-  },
-];
+import { CONTACT } from "../../data/contact.js";
 
 export function Header() {
   return (
@@ -30,7 +15,9 @@ export function Header() {
           </header>
           <p>
             +2 años de experiencia.{" "}
-            <span className={style.highlight}>Ingeniero Informatico</span>
+            <span className={style.highlight}>
+              Estudiante de Ing. Informatica
+            </span>
             .Transformando ideas complejas en experiencias digitales intuitivas
           </p>
         </section>
@@ -38,7 +25,7 @@ export function Header() {
         <img src="andy2.jpeg" alt="Andy" />
       </article>
       <section className={style.links}>
-        {BOTONES.map((boton) => {
+        {CONTACT.map((boton) => {
           return (
             <a
               href={boton.link}

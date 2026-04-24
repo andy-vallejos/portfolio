@@ -40,7 +40,6 @@ export function About() {
             alto impacto
           </p>
         </section>
-        <img src="andy1.jpeg" alt="" />
       </section>
     </section>
   );

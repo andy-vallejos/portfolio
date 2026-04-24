@@ -1,116 +1,56 @@
 import style from "./Projects.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCss3Alt,
-  faHtml5,
-  faJs,
-  faNodeJs,
-  faReact,
-  faGitAlt,
-  faJava,
-  faPython,
-  faLinux,
-  faFigma,
-} from "@fortawesome/free-brands-svg-icons";
 
-import { faCode } from "@fortawesome/free-solid-svg-icons";
-
-const MY_SKILLS = [
-  { name: "Html", icon: faHtml5, color: "#e34f26" },
-  { name: "Css", icon: faCss3Alt, color: "#1572b6" },
-  { name: "JavaScript", icon: faJs, color: "#f7df1e" },
-  { name: "Node.js", icon: faNodeJs, color: "#68a063" },
-  { name: "React", icon: faReact, color: "#61dafb" },
-  { name: "Git", icon: faGitAlt, color: "#f1502f" },
-  { name: "Java", icon: faJava, color: "#f89820" },
-  { name: "Python", icon: faPython, color: "#3776ab" },
-  { name: "C++", icon: faCode, color: "#00599c" },
-  { name: "Linux", icon: faLinux, color: "#000000" },
-  { name: "Figma", icon: faFigma, color: "#F24E1E" },
-];
-
-const PROJECTS = [
-  {
-    id: 1,
-    name: "Termometro WIFI",
-    tecnologias: ["React", "C++"],
-    contenido:
-      "Sistema de monitoreo de temperatura en tiempo real utilizando un ESP32 y sensores DS18B20.",
-    image: "/termometro.jpeg",
-    github: "https://github.com/tu-usuario/tu-repo",
-  },
-  {
-    id: 1,
-    name: "Termometro WIFI",
-    tecnologias: ["React", "C++"],
-    contenido:
-      "Sistema de monitoreo de temperatura en tiempo real utilizando un ESP32 y sensores DS18B20.",
-    image: "/image.png",
-    github: "https://github.com/tu-usuario/tu-repo",
-  },
-  {
-    id: 1,
-    name: "Termometro WIFI",
-    tecnologias: ["React", "C++"],
-    contenido:
-      "Sistema de monitoreo de temperatura en tiempo real utilizando un ESP32 y sensores DS18B20.",
-    image: "/tapacari.jpeg",
-    github: "https://github.com/tu-usuario/tu-repo",
-  },
-];
+import { PROJECTS } from "../../data/projects.js";
+import { SKILLS } from "../../data/skills.js";
 
 export function Projects() {
   return (
-    <section className={style.container}>
-      <h2 className={style.title}> &lt;/&gt; Proyectos</h2>
-      <div className={style.projectsGrid}>
-        {PROJECTS.map((project) => (
-          <article key={project.id} className={style.card}>
-            <div className={style.imageContainer}>
-              <div
-                className={style.img}
-                style={{ backgroundImage: `url(${project.image})` }}
-              ></div>
-            </div>
+    <section className={style.proyectos__container}>
+      <h2>Proyectos</h2>
+      {PROJECTS.map((p) => {
+        return (
+          <article className={style.proyecto__card}>
+            <section className={style.card__about}>
+              <img src={p.image} alt="" />
 
-            <div className={style.inf}>
-              <header>
-                <h3>{project.name}</h3>
-                <section className={style.tech}>
-                  {project.tecnologias.map((techName) => {
-                    const skill = MY_SKILLS.find((s) => s.name === techName);
-
-                    return skill ? (
-                      <span
-                        key={techName}
-                        className={style.techBadge}
-                        style={{ "--brand-color": skill.color }}
-                      >
-                        <FontAwesomeIcon icon={skill.icon} />
-                        <small>{skill.name}</small>
-                      </span>
-                    ) : null;
-                  })}
-                </section>
-              </header>
-
-              <section className={style.description}>
-                <p>{project.contenido}</p>
+              <section className={style.card__inf}>
+                <h3>{p.name}</h3>
+                <p>{p.contenido}</p>
               </section>
+            </section>
+            <footer className={style.footer__card}>
+              <section className={style.container__skills}>
+                {p.tecnologias.map((t) => {
+                  const skillData = SKILLS.find(
+                    (s) => s.name.toLowerCase() === t.toLowerCase(),
+                  );
+                  if (!skillData) return null;
 
-              <footer className={style.footer}>
+                  return (
+                    <div key={t} className={style.skills}>
+                      <FontAwesomeIcon
+                        icon={skillData.icon}
+                        style={{ color: skillData.color }}
+                      />
+                      <p style={{ color: skillData.color }}>{skillData.name}</p>
+                    </div>
+                  );
+                })}
+              </section>
+              <section className={style.card__buttons}>
+                {p.pagina === "" ? "" : <a href="">GitHub</a>}
                 <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={p.github}
+                  style={p.pagina === "" ? { width: "100%" } : ""}
                 >
                   GitHub
                 </a>
-              </footer>
-            </div>
+              </section>
+            </footer>
           </article>
-        ))}
-      </div>
+        );
+      })}
     </section>
   );
 }
