@@ -1,7 +1,7 @@
 import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope, faFilePdf } from "@fortawesome/free-solid-svg-icons";
 
-export const CONTACT = [
+export const contact = [
   {
     nombre: "GitHub",
     icon: faGithub,
