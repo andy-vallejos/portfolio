@@ -1,14 +1,14 @@
 import style from "./Projects.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { PROJECTS } from "../../data/projects.js";
-import { SKILLS } from "../../data/skills.js";
+import { projects } from "../../data/projects.js";
+import { skills } from "../../data/skills.js";
 
 export function Projects() {
   return (
     <section className={style.proyectos__container}>
       <h2>Proyectos</h2>
-      {PROJECTS.map((p) => {
+      {projects.map((p) => {
         return (
           <article className={style.proyecto__card}>
             <section className={style.card__about}>
@@ -22,7 +22,7 @@ export function Projects() {
             <footer className={style.footer__card}>
               <section className={style.container__skills}>
                 {p.tecnologias.map((t) => {
-                  const skillData = SKILLS.find(
+                  const skillData = skills.find(
                     (s) => s.name.toLowerCase() === t.toLowerCase(),
                   );
                   if (!skillData) return null;

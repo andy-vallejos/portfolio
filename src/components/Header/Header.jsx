@@ -1,6 +1,6 @@
 import style from "./Header.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { CONTACT } from "../../data/contact.js";
+import { contact } from "../../data/contact.js";
 
 export function Header() {
   return (
@@ -25,7 +25,7 @@ export function Header() {
         <img src="andy2.jpeg" alt="Andy" />
       </article>
       <section className={style.links}>
-        {CONTACT.map((boton) => {
+        {contact.map((boton) => {
           return (
             <a
               href={boton.link}
