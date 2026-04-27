@@ -13,7 +13,7 @@ export const contact = [
     link: "https://www.linkedin.com/in/andy-vallejos-bascope-99aa511b2",
   },
   {
-    nombre: "andyvallejos@gmail.com",
+    nombre: "andyvallejosgb@gmail.com",
     icon: faEnvelope,
     link: "mailto:andyvallejosgb@gmail.com",
   },
