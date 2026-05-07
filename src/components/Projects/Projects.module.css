@@ -7,34 +7,32 @@
   padding: 40px 20px;
   position: relative;
   overflow: visible;
+  isolation: isolate;
+}
+
+.proyectos__container::before,
+.proyectos__container::after {
+  content: "";
+  width: 250px;
+  height: 250px;
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.6;
+  filter: blur(60px);
+  will-change: transform;
 }
 
 .proyectos__container::before {
-  content: "";
-  width: 300px;
-  height: 300px;
-  position: absolute;
-  top: 200px;
-  right: -100px;
-  transform: translate(-50%, -50%);
-  z-index: -1;
-  background: #fd3333a1;
-  filter: blur(100px);
-  pointer-events: none;
+  top: 100px;
+  right: 0px;
+  background: #fd3333;
 }
 
 .proyectos__container::after {
-  content: "";
-  width: 300px;
-  height: 300px;
-  position: absolute;
-  bottom: -100px;
-  left: 100px;
-  transform: translate(-50%, -50%);
-  z-index: -1;
-  background: #33fdbaa1;
-  filter: blur(100px);
-  pointer-events: none;
+  bottom: 50px;
+  left: 10px;
+  background: #33fdba;
 }
 
 .proyecto__card {
@@ -44,9 +42,13 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(200px);
+  background: rgba(20, 20, 20, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  will-change: transform;
+  contain: layout paint;
 }
 
 .card__about {
@@ -58,6 +60,8 @@
 .card__about img {
   width: 300px;
   border-radius: 10px;
+  object-fit: cover;
+  display: block;
 }
 
 .card__inf {
@@ -73,16 +77,17 @@
 .container__skills {
   width: 50%;
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
   gap: 10px;
 }
 
 .skills {
   display: flex;
+  align-items: center;
   gap: 10px;
   padding: 10px;
   border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .card__buttons {
@@ -98,27 +103,33 @@
   text-align: center;
   padding: 10px;
   border-radius: 10px;
-  background: rgb(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid transparent;
-  transition: all 0.3s ease;
+  text-decoration: none;
+  transition:
+    transform 0.25s ease,
+    background-color 0.25s ease,
+    border-color 0.25s ease;
 }
 
 .card__buttons a:hover {
-  border: 1px solid rgb(255, 255, 255);
+  border-color: rgba(255, 255, 255, 0.5);
   transform: translateY(-2px);
-  background: transparent;
+  background: rgba(255, 255, 255, 0.02);
 }
 
 @media screen and (max-width: 580px) {
-  .card__about img {
-    width: 100%;
-    border-radius: 10px;
-  }
   .card__about {
     flex-direction: column;
   }
+
+  .card__about img {
+    width: 100%;
+  }
+
   .footer__card {
     flex-direction: column-reverse;
+    gap: 20px;
   }
 
   .container__skills {
@@ -126,6 +137,7 @@
     align-items: center;
     justify-content: center;
   }
+
   .card__buttons {
     width: 100%;
   }

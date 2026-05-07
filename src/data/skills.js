@@ -18,7 +18,7 @@ export const types = ["frontend", "backend", "language", "tool", "design"];
 export const skills = [
   { name: "Html", icon: faHtml5, color: "#e34f26", type: "frontend" },
   { name: "Css", icon: faCss3Alt, color: "#1572b6", type: "frontend" },
-  { name: "JavaScript", icon: faJs, color: "#f7df1e", type: "frontend" },
+  { name: "JavaScript", icon: faJs, color: "#f7df1e", type: "language" },
   { name: "React", icon: faReact, color: "#61dafb", type: "frontend" },
   { name: "Node.js", icon: faNodeJs, color: "#68a063", type: "backend" },
   { name: "Java", icon: faJava, color: "#f89820", type: "language" },

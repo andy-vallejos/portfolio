@@ -14,7 +14,7 @@ export const projects = [
     name: "Storybyte",
     tecnologias: ["react", "css", "firebase"],
     contenido:
-      "Sistema de monitoreo de temperatura en tiempo real utilizando un ESP32 y sensores DS18B20.",
+      "Biblioteca virtual, proyecto presentado en la gestion 2025 para postulacion a la SCESI(Sociedad cientifica de estudiantes de sistemas e informatica).",
     image: "/image.png",
     pagina: "",
     github: "https://github.com/tu-usuario/tu-repo",
@@ -24,7 +24,7 @@ export const projects = [
     name: "Web Tapacari",
     tecnologias: ["html", "css", "javascript"],
     contenido:
-      "Sistema de monitoreo de temperatura en tiempo real utilizando un ESP32 y sensores DS18B20.",
+      "Pagina de informacion sobre la provincia de Tapacari. Este proyecto se uso en la feria costumbrista del colegio Marcelo Quiroga Santa Cruz",
     image: "/tapacari.jpeg",
     pagina: "",
     github: "https://github.com/tu-usuario/tu-repo",
