@@ -7,7 +7,7 @@ export const projects = [
       "Sistema de monitoreo de temperatura en tiempo real utilizando un ESP32 y sensores DS18B20.",
     image: "/termometro.jpeg",
     pagina: "",
-    github: "https://github.com/tu-usuario/tu-repo",
+    github: "https://github.com/andy-vallejos/esp32",
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ export const projects = [
       "Biblioteca virtual, proyecto presentado en la gestion 2025 para postulacion a la SCESI(Sociedad cientifica de estudiantes de sistemas e informatica).",
     image: "/image.png",
     pagina: "",
-    github: "https://github.com/tu-usuario/tu-repo",
+    github: "https://github.com/andy-vallejos/storybyte",
   },
   {
     id: 3,
@@ -27,6 +27,6 @@ export const projects = [
       "Pagina de informacion sobre la provincia de Tapacari. Este proyecto se uso en la feria costumbrista del colegio Marcelo Quiroga Santa Cruz",
     image: "/tapacari.jpeg",
     pagina: "",
-    github: "https://github.com/tu-usuario/tu-repo",
+    github: "https://github.com/andy-vallejos/Tapacari_Promo2021",
   },
 ];
