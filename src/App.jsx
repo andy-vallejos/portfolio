@@ -1,15 +1,26 @@
-import { Nav, Header, Skills, About, Projects } from "./components/index";
+import {
+  Nav,
+  Hero,
+  AboutMe,
+  Experience,
+  TechStack,
+  Contact,
+  Footer,
+} from "./components/index";
 
 function App() {
   return (
-    <>
-      <Header></Header>
+    <div className="">
+      <Nav />
       <main>
-        <Skills></Skills>
-        <Projects></Projects>
-        <About></About>
+        <Hero />
+        <AboutMe />
+        <TechStack />
+        <Experience />
+        <Contact />
       </main>
-    </>
+      <Footer />
+    </div>
   );
 }
 
