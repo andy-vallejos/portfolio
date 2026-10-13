@@ -1,244 +1,165 @@
-import { useEffect, useRef } from "react";
-
-const CYAN = "0,184,230";
-const LIGHT = "245,247,250";
-const SLATE = "135,146,166";
-const GAP = 14;
-
-function QuarkField({ className = "" }) {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    let w = 0;
-    let h = 0;
-    let raf = 0;
-    let running = false;
-    let visible = true;
-    const mouse = { x: -9999, y: -9999 };
-
-    const quarks = [
-      { color: CYAN, phase: 0, trail: [], x: 0, y: 0 },
-      { color: LIGHT, phase: (Math.PI * 2) / 3, trail: [], x: 0, y: 0 },
-      { color: SLATE, phase: (Math.PI * 4) / 3, trail: [], x: 0, y: 0 },
-    ];
-    let sparks = [];
-
-    const resize = () => {
-      const rect = canvas.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      w = rect.width;
-      h = rect.height;
-      canvas.width = Math.round(w * dpr);
-      canvas.height = Math.round(h * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      if (reduceMotion) frame(2500);
-    };
-
-    const frame = (now) => {
-      const t = now / 1000;
-      const cx = w / 2;
-      const cy = h / 2;
-      const R = Math.min(w, h) * 0.5;
-      const orbit = R * 0.26;
-
-      ctx.clearRect(0, 0, w, h);
-
-      // Posición de cada quark: órbita elíptica que gira y respira
-      quarks.forEach((q) => {
-        const a = t * 0.9 + q.phase;
-        const r = orbit * (1 + 0.3 * Math.sin(t * 1.3 + q.phase * 1.5));
-        const ex = Math.cos(a) * r;
-        const ey = Math.sin(a) * r * 0.62;
-        const tilt = t * 0.25;
-        q.x = cx + ex * Math.cos(tilt) - ey * Math.sin(tilt);
-        q.y = cy + ex * Math.sin(tilt) + ey * Math.cos(tilt);
-        q.trail.push({ x: q.x, y: q.y });
-        if (q.trail.length > 40) q.trail.shift();
-      });
-
-      // Partículas que se desprenden
-      if (!reduceMotion && sparks.length < 50 && Math.random() < 0.12) {
-        const q = quarks[Math.floor(Math.random() * 3)];
-        const ang =
-          Math.atan2(q.y - cy, q.x - cx) + (Math.random() - 0.5) * 1.2;
-        const speed = 0.25 + Math.random() * 0.5;
-        sparks.push({
-          x: q.x,
-          y: q.y,
-          vx: Math.cos(ang) * speed,
-          vy: Math.sin(ang) * speed,
-          life: 1,
-          color: q.color,
-        });
-      }
-
-      // Malla de puntos con caída radial
-      const x0 = cx - Math.floor(cx / GAP) * GAP;
-      const y0 = cy - Math.floor(cy / GAP) * GAP;
-      for (let x = x0; x < w; x += GAP) {
-        for (let y = y0; y < h; y += GAP) {
-          const dx = x - cx;
-          const dy = y - cy;
-          const d = Math.sqrt(dx * dx + dy * dy);
-          if (d > R) continue;
-
-          let energy = 0;
-          for (let i = 0; i < 3; i++) {
-            const qx = x - quarks[i].x;
-            const qy = y - quarks[i].y;
-            energy += Math.exp(-(qx * qx + qy * qy) / (2 * 42 * 42));
-          }
-          const mx = x - mouse.x;
-          const my = y - mouse.y;
-          energy += Math.exp(-(mx * mx + my * my) / (2 * 60 * 60)) * 0.8;
-
-          const base = Math.pow(1 - d / R, 1.6) * 0.45;
-          const alpha = Math.min(1, base + energy * 0.85);
-          if (alpha < 0.02) continue;
-
-          const radius = 0.9 + Math.min(energy, 1.2) * 2.2;
-          ctx.fillStyle =
-            energy > 0.12
-              ? `rgba(${CYAN},${alpha})`
-              : `rgba(170,185,195,${alpha})`;
-          ctx.beginPath();
-          ctx.arc(x, y, radius, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      }
-
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = "rgba(255,255,255,0.14)";
-      ctx.beginPath();
-      ctx.arc(cx, cy, R * 0.62, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.lineWidth = 1.5;
-      ctx.strokeStyle = `rgba(${CYAN},0.8)`;
-      ctx.beginPath();
-      ctx.arc(cx, cy, R * 0.62, t * 0.4, t * 0.4 + 0.9);
-      ctx.stroke();
-
-      // Enlaces entre quarks (gluones)
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = `rgba(${CYAN},0.28)`;
-      ctx.beginPath();
-      ctx.moveTo(quarks[0].x, quarks[0].y);
-      ctx.lineTo(quarks[1].x, quarks[1].y);
-      ctx.lineTo(quarks[2].x, quarks[2].y);
-      ctx.closePath();
-      ctx.stroke();
-
-      // Estelas y cuerpos
-      quarks.forEach((q) => {
-        ctx.lineWidth = 1.6;
-        ctx.lineCap = "round";
-        for (let i = 1; i < q.trail.length; i++) {
-          ctx.strokeStyle = `rgba(${q.color},${(i / q.trail.length) * 0.5})`;
-          ctx.beginPath();
-          ctx.moveTo(q.trail[i - 1].x, q.trail[i - 1].y);
-          ctx.lineTo(q.trail[i].x, q.trail[i].y);
-          ctx.stroke();
-        }
-        ctx.fillStyle = `rgba(${q.color},0.14)`;
-        ctx.beginPath();
-        ctx.arc(q.x, q.y, 11, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = `rgb(${q.color})`;
-        ctx.beginPath();
-        ctx.arc(q.x, q.y, 4.5, 0, Math.PI * 2);
-        ctx.fill();
-      });
-
-      // Partículas desprendidas
-      sparks = sparks.filter((s) => s.life > 0);
-      sparks.forEach((s) => {
-        s.x += s.vx;
-        s.y += s.vy;
-        s.life -= 0.008;
-        ctx.fillStyle = `rgba(${s.color},${Math.max(s.life, 0) * 0.7})`;
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, 1.5, 0, Math.PI * 2);
-        ctx.fill();
-      });
-    };
-
-    const loop = (now) => {
-      frame(now);
-      raf = requestAnimationFrame(loop);
-    };
-    const start = () => {
-      if (running || reduceMotion || !visible || document.hidden) return;
-      running = true;
-      raf = requestAnimationFrame(loop);
-    };
-    const stop = () => {
-      running = false;
-      cancelAnimationFrame(raf);
-    };
-
-    const onPointerMove = (e) => {
-      const rect = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - rect.left;
-      mouse.y = e.clientY - rect.top;
-    };
-    const onVisibility = () => (document.hidden ? stop() : start());
-
-    const ro = new ResizeObserver(resize);
-    ro.observe(canvas);
-    const io = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting;
-      visible ? start() : stop();
-    });
-    io.observe(canvas);
-
-    resize();
-    window.addEventListener("pointermove", onPointerMove, { passive: true });
-    document.addEventListener("visibilitychange", onVisibility);
-    start();
-
-    return () => {
-      stop();
-      ro.disconnect();
-      io.disconnect();
-      window.removeEventListener("pointermove", onPointerMove);
-      document.removeEventListener("visibilitychange", onVisibility);
-    };
-  }, []);
-
-  return <canvas ref={canvasRef} className={className} aria-hidden="true" />;
-}
+import { useEffect, useState } from "react";
 
 export function Hero({
-  kicker = "Desarrollo",
-  title = "de software a medida para tu negocio",
-  description = "Aplicaciones web, sistemas y automatización. Construimos desde la partícula más pequeña para que todo escale.",
+  name = "Andy Vallejos Bascope",
+  kicker = "Desarrollador freelance",
+  title = "Software a medida para tu negocio",
+  highlight = "a medida",
+  description = "Diseño y construyo aplicaciones web, sistemas y automatizaciones. Trabajas directamente conmigo, de la idea a la entrega.",
+  status = "Disponible para nuevos proyectos",
+  image = "/ANDY.jpeg",
+  imageAlt = "Retrato de Andy Vallejos Bascope",
+  secondaryCta = {
+    label: "Descargar CV",
+    href: "/cv-andy-gildo-vallejos-bascope.pdf",
+  },
 }) {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setReady(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+
+  const highlightIndex = highlight && title ? title.indexOf(highlight) : -1;
+  const hasHighlight = highlightIndex !== -1;
+  const titleBefore = hasHighlight ? title.slice(0, highlightIndex) : title;
+  const titleAfter = hasHighlight
+    ? title.slice(highlightIndex + highlight.length)
+    : "";
+
+  const reveal = (delay) =>
+    `transition-all duration-700 ease-out motion-reduce:transition-none ${delay} ${
+      ready ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+    }`;
+
   return (
     <section
       id="inicio"
-      className="relative isolate flex min-h-screen w-full items-center overflow-hidden bg-[#0a0a0a] px-6 pb-16 pt-28 text-white md:px-12"
+      className="relative isolate flex min-h-screen w-full items-center overflow-hidden bg-[#0a0a0a] px-6 pb-20 pt-28 text-white md:px-12"
     >
-      <div className="mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-        <div className="relative z-10">
-          <h1 className="text-[clamp(2rem,4.4vw,3.6rem)] font-medium leading-[1.15] tracking-tight">
-            <span className="block text-white/25">{kicker}</span>
-            <span className="block">{title}</span>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-48 top-1/4 h-96 w-96 rounded-full bg-[#00b8e6]/5 blur-[120px]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-48 bottom-0 h-[32rem] w-[32rem] rounded-full bg-blue-500/5 blur-[130px]"
+      />
+
+      <div className="mx-auto grid w-full max-w-7xl items-center gap-16 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
+        <div className="relative z-10 order-2 lg:order-1">
+          {status && (
+            <span
+              className={`mb-8 inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs text-white/70 backdrop-blur-xl ${reveal("delay-0")}`}
+            >
+              <span className="h-2 w-2 rounded-full bg-[#00b8e6] shadow-[0_0_10px_rgba(0,184,230,0.8)]" />
+              {status}
+            </span>
+          )}
+
+          <p
+            className={`mb-5 flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-white/55 ${reveal("delay-100")}`}
+          >
+            <span className="h-px w-8 bg-[#00b8e6]" />
+            {name}
+          </p>
+
+          <h1
+            className={`max-w-[21ch] text-balance text-[clamp(2rem,4.2vw,3.6rem)] font-medium leading-[1.12] tracking-tight ${reveal("delay-100")}`}
+          >
+            <span className="mb-3 block text-base font-normal tracking-normal text-white/60 sm:text-lg">
+              {kicker}
+            </span>
+
+            <span className="block">
+              {hasHighlight ? (
+                <>
+                  {titleBefore}
+                  <span className="relative inline-block text-[#00b8e6]">
+                    {highlight}
+                    <span className="absolute -bottom-1 left-0 h-px w-full origin-left bg-gradient-to-r from-[#00b8e6] to-transparent" />
+                  </span>
+                  {titleAfter}
+                </>
+              ) : (
+                title
+              )}
+            </span>
           </h1>
 
-          <p className="mt-8 max-w-sm text-sm leading-relaxed text-white/60">
+          <p
+            className={`mt-8 max-w-lg text-sm leading-7 text-white/65 sm:text-base sm:leading-8 ${reveal("delay-200")}`}
+          >
             {description}
           </p>
+
+          <div
+            className={`mt-10 flex flex-wrap items-center gap-4 ${reveal("delay-300")}`}
+          >
+            <a
+              href={secondaryCta.href}
+              download
+              className="group inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.02] px-6 py-3.5 text-sm text-white/80 transition duration-300 hover:border-white/30 hover:bg-white/[0.05] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+            >
+              {secondaryCta.label}
+              <svg
+                aria-hidden="true"
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="transition-transform duration-300 group-hover:translate-y-0.5"
+              >
+                <path d="M12 3v12" />
+                <path d="m7 10 5 5 5-5" />
+                <path d="M5 21h14" />
+              </svg>
+            </a>
+          </div>
         </div>
 
-        <div className="relative h-85 w-full sm:h-110 lg:h-145">
-          <QuarkField className="pointer-events-none absolute inset-0 h-full w-full" />
+        <div className="order-1 grid min-w-0 lg:order-2 lg:justify-self-center">
+          <div
+            className={`relative isolate mx-auto w-full max-w-[17rem] sm:max-w-sm lg:mx-0 lg:w-[min(34vw,25rem)] lg:max-w-none ${reveal("delay-200")}`}
+          >
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -inset-12 -z-20 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(0,184,230,0.22),transparent_66%)] blur-2xl"
+            />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 -z-10 translate-x-3 translate-y-3 rounded-[2rem] rounded-tr-[5rem] rounded-bl-[5rem] border border-[#00b8e6]/30 bg-gradient-to-br from-[#00b8e6]/10 to-transparent sm:translate-x-4 sm:translate-y-4"
+            />
+
+            <div className="group relative aspect-[1102/1280] w-full overflow-hidden rounded-[2rem] rounded-tr-[5rem] rounded-bl-[5rem] border border-white/15 bg-[#101316] shadow-[0_30px_90px_-30px_rgba(0,184,230,0.45)]">
+              <img
+                src={image}
+                alt={imageAlt}
+                width={1102}
+                height={1280}
+                fetchPriority="high"
+                decoding="async"
+                className="h-full w-full select-none object-cover object-[50%_15%] brightness-[1.08] contrast-[1.06] saturate-[1.08] transition-transform duration-700 ease-out group-hover:scale-[1.03] motion-reduce:transition-none"
+              />
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(0,184,230,0.16)_0%,transparent_50%)] mix-blend-screen"
+              />
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#0a0a0a]/70 to-transparent"
+              />
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-white/10 transition duration-500 group-hover:ring-[#00b8e6]/40"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>
