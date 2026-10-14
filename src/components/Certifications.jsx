@@ -16,8 +16,8 @@ const CERTIFICATIONS = [
     issuer: "Cisco Networking Academy",
     date: "Octubre 24",
     image:
-      "/public/Curriculum/_certificate_andy-vallejos-ucb-edu-bo_fcbcc368-e72d-42f0-9248-bca8cfa11cca (1).pdf",
-    pdf: "/public/Curriculum/_certificate_andy-vallejos-ucb-edu-bo_fcbcc368-e72d-42f0-9248-bca8cfa11cca (1).pdf",
+      "/Curriculum/_certificate_andy-vallejos-ucb-edu-bo_fcbcc368-e72d-42f0-9248-bca8cfa11cca (1).pdf",
+    pdf: "/Curriculum/_certificate_andy-vallejos-ucb-edu-bo_fcbcc368-e72d-42f0-9248-bca8cfa11cca (1).pdf",
   },
   {
     category: "Programación",
@@ -33,8 +33,8 @@ const CERTIFICATIONS = [
     skills: ["Python", "Lógica de programación", "Algoritmos"],
     issuer: "Jalasoft - Coding Dojo",
     date: "Mayo 2021",
-    image: "/public/Curriculum/ANDY GILDO VALLEJOS BASCOPE-certificadoJala.pdf",
-    pdf: "/public/Curriculum/ANDY GILDO VALLEJOS BASCOPE-certificadoJala.pdf",
+    image: "/Curriculum/ANDY GILDO VALLEJOS BASCOPE-certificadoJala.pdf",
+    pdf: "/Curriculum/ANDY GILDO VALLEJOS BASCOPE-certificadoJala.pdf",
   },
   {
     category: "Programación",
@@ -50,8 +50,8 @@ const CERTIFICATIONS = [
     skills: ["Java", "POO", "Lógica de programación"],
     issuer: "SCESI",
     date: "Enero 2021",
-    image: "/public/Curriculum/certificadoCursosScesi.docx(3).pdf",
-    pdf: "/public/Curriculum/certificadoCursosScesi.docx(3).pdf",
+    image: "/Curriculum/certificadoCursosScesi.docx(3).pdf",
+    pdf: "/Curriculum/certificadoCursosScesi.docx(3).pdf",
     verifyUrl: "",
   },
   {
@@ -68,8 +68,8 @@ const CERTIFICATIONS = [
     skills: ["HTML", "CSS", "JavaScript"],
     issuer: "Ariel Yanarico - JalaSoft",
     date: "2019",
-    image: "/public/Curriculum/certificate-andy.pdf",
-    pdf: "/public/Curriculum/certificate-andy.pdf",
+    image: "/Curriculum/certificate-andy.pdf",
+    pdf: "/Curriculum/certificate-andy.pdf",
     verifyUrl: "",
   },
 ];
