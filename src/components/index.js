@@ -5,3 +5,4 @@ export * from "./Experience.jsx";
 export * from "./TechStack.jsx";
 export * from "./Contact.jsx";
 export * from "./Footer.jsx";
+export * from "./Certifications.jsx";

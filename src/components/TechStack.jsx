@@ -81,7 +81,7 @@ export function TechStack({
       <div className="mx-auto max-w-7xl">
         <Reveal>
           <p className="mb-4 text-xs uppercase tracking-[0.2em] text-[#00b8e6]">
-            02 / Herramientas
+            03 / Herramientas
           </p>
           <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div>

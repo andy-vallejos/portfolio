@@ -1,3 +1,4 @@
+import Certifications from "./components/Certifications";
 import {
   Nav,
   Hero,
@@ -15,6 +16,7 @@ function App() {
       <main>
         <Hero />
         <AboutMe />
+        <Certifications />
         <TechStack />
         <Experience />
         <Contact />

@@ -84,10 +84,10 @@ export function Experience({
         className="pointer-events-none absolute -right-40 top-1/4 -z-10 h-[30rem] w-[30rem] rounded-full bg-[#00b8e6]/[0.07] blur-[120px]"
       />
 
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto max-w-7xl">
         <Reveal>
           <p className="mb-4 text-xs uppercase tracking-[0.2em] text-[#00b8e6]">
-            03 / Trayectoria
+            04 / Trayectoria
           </p>
           <h2 className="text-[clamp(1.75rem,3.4vw,2.75rem)] font-medium leading-tight tracking-tight">
             {title}
